@@ -1,0 +1,7 @@
+[
+    {
+      "origin": ["gs://owasp-test-855b8.appspot.com/dynamic certificate/Janakiraman-1-2"],
+      "method": ["GET"],
+      "maxAgeSeconds": 3600
+    }
+  ]

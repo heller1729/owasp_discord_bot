@@ -1,0 +1,1 @@
+mg.png',cv2_im_processed)
