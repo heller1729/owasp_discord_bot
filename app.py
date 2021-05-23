@@ -1,5 +1,6 @@
 #Required imports
 import os
+import firebase_admin
 from flask import redirect,Flask,render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import datetime
@@ -45,6 +46,9 @@ def Data():
         dis_id = request.form.get("dis_id",False)
         print(request.form.to_dict())
     firebase = requests.get('https://owasp-test-855b8-default-rtdb.firebaseio.com/Certificates.json', None)
+
+
+
     print(dis_id)
     jsonData = json.loads(firebase.text)
     jsonData1 = json.dumps(jsonData)
@@ -54,16 +58,21 @@ def Data():
         year=jsonData[i][xyz]["Year"]
         if jsonData[i][xyz]["Discord"] == dis_id:
             return redirect("https://storage.googleapis.com/owasp-test-855b8.appspot.com/dynamic%20certificate/"+jsonData[i][xyz]["Name"]+"-"+year)
-    # print(html)
-    # if dis_id in html:
-    #     return "exists"
-    # else:
+    print(html)
+    if dis_id in html:
+        return "exists"
+    else:
     return "not exists"
-    # return html
+    return html
 
 # Downloading certificates
 # storage.child("dynamic certificate/Pratham-1990-1999").download("Pratham-1990-1999")
+# storage = firebase_admin.storage()
+# pathReference = storage.ref('dynamic certificate/Pratham-1990-1999.png')
 
+# # Create a reference from a Google Cloud Storage URI
+# gsReference = storage.refFromURL('gs://owasp-test-855b8.appspot.com/dynamic certificate')
+# pathReference.child('dynamic certificate/Pratham-1990-1999').getdownloadURL().then(())
 
 #Initialize Firestore DB
 cred = credentials.Certificate('key.json')
